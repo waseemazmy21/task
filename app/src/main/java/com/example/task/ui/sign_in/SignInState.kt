@@ -1,8 +1,10 @@
 package com.example.task.ui.sign_in
 
+import androidx.annotation.StringRes
+
 data class SignInState(
     val email: String = "",
-    val emailError: String? = null,
+    @StringRes val emailError: Int? = null,
     val password: String = "",
-    val passwordError: String? = null
+    @StringRes val passwordError: Int? = null
 )

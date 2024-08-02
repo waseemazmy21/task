@@ -1,8 +1,6 @@
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Forum
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -29,7 +27,7 @@ fun CustomDropDownMenu(
     options: List<String>,
     leadingIcon: ImageVector,
     modifier: Modifier = Modifier,
-    errorMessage: String? = null,
+    @StringRes errorMessage: Int? = null,
     @StringRes label: Int? = null
 
 ) {
@@ -62,7 +60,7 @@ fun CustomDropDownMenu(
 
             if (errorMessage != null) {
                 Text(
-                    text = errorMessage,
+                    text = stringResource(id = errorMessage),
                     color = MaterialTheme.colorScheme.error,
                     modifier = Modifier.align(Alignment.End)
                 )

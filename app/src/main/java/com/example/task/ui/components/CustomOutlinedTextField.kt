@@ -26,7 +26,7 @@ fun CustomOutlinedTextField(
     @StringRes label: Int,
     leadingIcon: ImageVector,
     modifier: Modifier = Modifier,
-    errorMessage: String? = null,
+    @StringRes errorMessage: Int? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         imeAction = ImeAction.Next,
         keyboardType = KeyboardType.Text
@@ -52,7 +52,7 @@ fun CustomOutlinedTextField(
         )
         if (errorMessage != null) {
             Text(
-                text = errorMessage,
+                text = stringResource(id = errorMessage),
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.align(Alignment.End)
             )

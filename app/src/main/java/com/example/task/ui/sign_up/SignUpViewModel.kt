@@ -1,7 +1,9 @@
 package com.example.task.ui.sign_up
 
 import android.util.Patterns
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
+import com.example.task.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -9,7 +11,7 @@ import com.example.task.ui.utils.EMAIL_REGEX
 import com.example.task.ui.utils.phone_regex
 
 
-class SignUpViewModel: ViewModel() {
+class SignUpViewModel : ViewModel() {
     private val _signUpState = MutableStateFlow(SignUpState())
     val signUpState = _signUpState.asStateFlow()
 
@@ -23,8 +25,8 @@ class SignUpViewModel: ViewModel() {
 
     private fun validateSalutation() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.salutation.isBlank() -> "salutation field is required"
+            @StringRes val message: Int? = when {
+                currentState.salutation.isBlank() -> R.string.error_salutation_required
                 else -> null
             }
             currentState.copy(
@@ -43,10 +45,10 @@ class SignUpViewModel: ViewModel() {
 
     private fun validateFirstName() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.firstName.isBlank() -> "first name field is required"
-                currentState.firstName.length < 3 -> "first name must be at least 3 characters"
-                currentState.firstName.length > 15 -> "first name must be at most 15 characters"
+            @StringRes val message: Int? = when {
+                currentState.firstName.isBlank() -> R.string.error_first_name_required
+                currentState.firstName.length < 3 -> R.string.error_first_name_too_short
+                currentState.firstName.length > 15 -> R.string.error_first_name_too_long
                 else -> null
             }
             currentState.copy(
@@ -65,10 +67,10 @@ class SignUpViewModel: ViewModel() {
 
     private fun validateLastName() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.lastName.isBlank() -> "last name field is required"
-                currentState.lastName.length < 3 -> "last name must be at least 3 characters"
-                currentState.lastName.length > 15 -> "last name must be at most 15 characters"
+            @StringRes val message: Int? = when {
+                currentState.lastName.isBlank() -> R.string.error_last_name_required
+                currentState.lastName.length < 3 -> R.string.error_last_name_too_short
+                currentState.lastName.length > 15 -> R.string.error_last_name_too_long
                 else -> null
             }
             currentState.copy(
@@ -89,10 +91,10 @@ class SignUpViewModel: ViewModel() {
 
     private fun validateEmail() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.email.isBlank() -> "email field is required"
+            @StringRes val message: Int? = when {
+                currentState.email.isBlank() -> R.string.error_email_required
                 !Patterns.EMAIL_ADDRESS.matcher(currentState.email)
-                    .matches() -> "incorrect email format"
+                    .matches() -> R.string.error_incorrect_email_format
 
                 else -> null
             }
@@ -115,9 +117,9 @@ class SignUpViewModel: ViewModel() {
 
     private fun validatePassword() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.password.isBlank() -> "password field is required"
-                currentState.password.length < 8 -> "password must be at least 3 characters"
+            @StringRes val message: Int? = when {
+                currentState.password.isBlank() -> R.string.error_password_required
+                currentState.password.length < 8 -> R.string.error_password_too_short
                 else -> null
             }
             currentState.copy(
@@ -136,9 +138,9 @@ class SignUpViewModel: ViewModel() {
 
     private fun validateConfirmationPassword() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.confirmPassword.isBlank() -> "confirmation password field is required"
-                currentState.confirmPasswordError != currentState.password -> "confirmation password doesn't match password"
+            @StringRes val message: Int? = when {
+                currentState.confirmPassword.isBlank() -> R.string.error_confirm_password_required
+                currentState.confirmPassword != currentState.password -> R.string.error_confirmation_passwords_do_not_match_password
                 else -> null
             }
             currentState.copy(
@@ -166,10 +168,10 @@ class SignUpViewModel: ViewModel() {
 
     private fun validatePhoneNumber() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.phoneNumberCode.isBlank() -> "choose a phone code"
-                currentState.phoneNumber.isBlank() -> "phone number field is required"
-                !currentState.phoneNumber.matches(phone_regex[currentState.phoneNumberCode]!!.toRegex()) -> "wrong phone format"
+            @StringRes val message: Int? = when {
+                currentState.phoneNumberCode.isBlank() -> R.string.error_phone_code_required
+                currentState.phoneNumber.isBlank() -> R.string.error_phone_number_required
+                !currentState.phoneNumber.matches(phone_regex[currentState.phoneNumberCode]!!.toRegex()) -> R.string.error_incorrect_phone_format
                 else -> null
             }
             currentState.copy(
@@ -186,8 +188,8 @@ class SignUpViewModel: ViewModel() {
 
     private fun validateCurrency() {
         _signUpState.update { currentState ->
-            val message: String? = when {
-                currentState.phoneNumber.isBlank() -> "currency field is required"
+            @StringRes val message: Int? = when {
+                currentState.phoneNumber.isBlank() -> R.string.error_currency_required
                 else -> null
             }
             currentState.copy(
@@ -215,14 +217,11 @@ class SignUpViewModel: ViewModel() {
         )
 
         val phoneNumberCodes = listOf(
-            "+20",
-            "+44"
+            "+20", "+44"
         )
 
         val currencies = listOf(
-            "EGP",
-            "USD",
-            "CAD"
+            "EGP", "USD", "CAD"
 
         )
     }

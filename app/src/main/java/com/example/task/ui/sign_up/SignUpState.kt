@@ -1,23 +1,24 @@
 package com.example.task.ui.sign_up
 
 import android.icu.util.Currency
+import androidx.annotation.StringRes
 
 data class SignUpState (
     val salutation: String = "",
-    val salutationError: String? = null,
+    @StringRes val salutationError: Int? = null,
     val firstName: String = "",
-    val firstNameError: String? = null,
+    @StringRes val firstNameError: Int? = null,
     val lastName: String = "",
-    val lastNameError: String? = null,
+    @StringRes val lastNameError: Int? = null,
     val email: String = "",
-    val emailError: String? = null,
+    @StringRes val emailError: Int? = null,
     val phoneNumberCode: String = SignUpViewModel.phoneNumberCodes[0],
     val phoneNumber: String = "",
-    val phoneNumberError: String? = null,
+    @StringRes val phoneNumberError: Int? = null,
     val password: String = "",
-    val passwordError: String? = null,
+    @StringRes val passwordError: Int? = null,
     val confirmPassword: String = "",
-    val confirmPasswordError: String? = null,
+    @StringRes val confirmPasswordError: Int? = null,
     val currency: String = "",
-    val currencyError: String? = null
+    @StringRes val currencyError: Int? = null
 )

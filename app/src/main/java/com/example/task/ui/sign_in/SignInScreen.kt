@@ -1,5 +1,6 @@
 package com.example.task.ui.sign_in
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -86,9 +87,9 @@ fun SignInScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Row {
-            Text(text = "Don't have an account?")
+            Text(text = stringResource(R.string.do_not_have_an_account))
             Text(
-                text = "Sign Up",
+                text = stringResource(id = R.string.sign_up),
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable { onSignUpClick() }
@@ -100,15 +101,18 @@ fun SignInScreen(
 
 @Composable
 fun Buttons(
-    onSignIn: () -> Unit,
+    onSignIn: () -> Boolean,
     modifier: Modifier = Modifier
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(16.dp), modifier = modifier) {
         val context = LocalContext.current
 
         Button(onClick = {
-            onSignIn()
-//            Toast.makeText(context, "Sing in successfully", Toast.LENGTH_SHORT).show()
+            if(onSignIn()) {
+                Toast.makeText(context, "Sing in successfully", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "Please fix the error and try again", Toast.LENGTH_SHORT).show()
+            }
         }, modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = stringResource(R.string.sign_in).uppercase(),

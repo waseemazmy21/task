@@ -33,7 +33,7 @@ fun PasswordOutlinedTextField(
     @StringRes label: Int,
     leadingIcon: ImageVector,
     modifier: Modifier = Modifier,
-    errorMessage: String? = null,
+    @StringRes errorMessage: Int? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(
         imeAction = ImeAction.Next,
         keyboardType = KeyboardType.Password
@@ -77,7 +77,7 @@ fun PasswordOutlinedTextField(
         )
         if (errorMessage != null) {
             Text(
-                text = errorMessage,
+                text = stringResource(errorMessage),
                 color = MaterialTheme.colorScheme.error,
                 modifier = Modifier.align(Alignment.End)
             )

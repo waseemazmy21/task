@@ -1,7 +1,10 @@
 package com.example.task.ui.sign_in
 
 import android.util.Patterns
+import androidx.annotation.StringRes
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.ViewModel
+import com.example.task.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,10 +25,10 @@ class SignInViewModel : ViewModel() {
 
     private fun validateEmail() {
         _signInState.update { currentState ->
-            val message: String? = when {
-                currentState.email.isBlank() -> "email field is required"
-                !Patterns.EMAIL_ADDRESS.matcher(currentState.email)
-                    .matches() -> "incorrect email format"
+            @StringRes val message: Int? = when {
+                currentState.email.isBlank() -> R.string.error_email_required
+                !PatternsCompat.EMAIL_ADDRESS.matcher(currentState.email)
+                    .matches() -> R.string.error_incorrect_email_format
 
                 else -> null
             }
@@ -45,9 +48,9 @@ class SignInViewModel : ViewModel() {
 
     private fun validatePassword() {
         _signInState.update { currentState ->
-            val message: String? = when {
-                currentState.password.isBlank() -> "password field is required"
-                currentState.password.length < 8 -> "password must be at least 8 characters"
+            @StringRes val message: Int? = when {
+                currentState.password.isBlank() -> R.string.error_password_required
+                currentState.password.length < 8 -> R.string.error_password_too_short
                 else -> null
             }
             currentState.copy(
@@ -56,8 +59,10 @@ class SignInViewModel : ViewModel() {
         }
     }
 
-    fun signIn() {
+    fun signIn(): Boolean {
         validateEmail()
         validatePassword()
+
+        return (_signInState.value.emailError == null && _signInState.value.passwordError == null)
     }
 }
