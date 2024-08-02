@@ -4,11 +4,10 @@ import android.util.Patterns
 import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import com.example.task.R
+import com.example.task.ui.utils.phone_regex
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import com.example.task.ui.utils.EMAIL_REGEX
-import com.example.task.ui.utils.phone_regex
 
 
 class SignUpViewModel : ViewModel() {

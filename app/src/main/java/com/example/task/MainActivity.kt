@@ -10,8 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -116,16 +114,18 @@ fun TabBar(appViewModel: AppViewModel = viewModel()) {
             selectedTabIndex = tabBarState.currentTabIndex,
 
             ) {
-            tabs.forEachIndexed() { index, tab ->
+            tabs.forEachIndexed { index, tab ->
                 Tab(
                     selected = (index == tabBarState.currentTabIndex),
                     onClick = { appViewModel.updateCurrentTabBarIndex(index) },
-                    selectedContentColor = Color.White ,
+                    selectedContentColor = Color.White,
                     unselectedContentColor = MaterialTheme.colorScheme.primary,
                     interactionSource = MutableInteractionSource(
 
                     ),
-                    modifier = Modifier.background(MaterialTheme.colorScheme.primary).padding(8.dp)
+                    modifier = Modifier
+                        .background(MaterialTheme.colorScheme.primary)
+                        .padding(8.dp)
                 ) {
                     Text(text = tab, color = MaterialTheme.colorScheme.onPrimary)
                 }
@@ -133,8 +133,11 @@ fun TabBar(appViewModel: AppViewModel = viewModel()) {
         }
 
         when (tabBarState.currentTabIndex) {
-            0 -> SignInScreen(onSignUpClick = {appViewModel.updateCurrentTabBarIndex(1)} ,modifier = Modifier.fillMaxSize())
-            1 -> SignUpScreen(onSignInClick = {appViewModel.updateCurrentTabBarIndex(0)} ,modifier = Modifier.fillMaxSize())
+            0 -> SignInScreen(onSignUpClick = { appViewModel.updateCurrentTabBarIndex(1) },
+                modifier = Modifier.fillMaxSize())
+
+            1 -> SignUpScreen(onSignInClick = { appViewModel.updateCurrentTabBarIndex(0) },
+                modifier = Modifier.fillMaxSize())
         }
     }
 }

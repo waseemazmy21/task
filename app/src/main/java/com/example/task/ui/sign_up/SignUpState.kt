@@ -1,9 +1,8 @@
 package com.example.task.ui.sign_up
 
-import android.icu.util.Currency
 import androidx.annotation.StringRes
 
-data class SignUpState (
+data class SignUpState(
     val salutation: String = "",
     @StringRes val salutationError: Int? = null,
     val firstName: String = "",

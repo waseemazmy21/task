@@ -1,6 +1,5 @@
 package com.example.task.ui.sign_in
 
-import android.util.Patterns
 import androidx.annotation.StringRes
 import androidx.core.util.PatternsCompat
 import androidx.lifecycle.ViewModel

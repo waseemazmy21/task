@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class AppViewModel: ViewModel() {
+class AppViewModel : ViewModel() {
     private val _tabBarState: MutableStateFlow<TabBarState> = MutableStateFlow(TabBarState())
     val tabBarState: StateFlow<TabBarState> = _tabBarState.asStateFlow()
 
