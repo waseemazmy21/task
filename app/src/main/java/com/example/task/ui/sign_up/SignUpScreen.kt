@@ -1,6 +1,7 @@
 package com.example.task.ui.sign_in
 
 import CustomDropDownMenu
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -51,6 +53,7 @@ fun SignUpScreen(
             .padding(top = 18.dp, bottom = 12.dp, start = 12.dp, end = 12.dp)
             .verticalScroll(rememberScrollState())
     ) {
+        val context = LocalContext.current
 
         CustomDropDownMenu(
             selectedOption = signUpState.salutation,
@@ -96,6 +99,7 @@ fun SignUpScreen(
                 onSelectedOptionChange = { signUpViewModel.updatePhoneNumberCode(it) },
                 options = SignUpViewModel.phoneNumberCodes,
                 leadingIcon = Icons.Outlined.Phone,
+                label = R.string.code,
                 modifier = Modifier.width(140.dp)
             )
 
@@ -143,7 +147,19 @@ fun SignUpScreen(
 
         Button(
             onClick = {
-                signUpViewModel.signup()
+                if (signUpViewModel.signUp()) {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.sing_up_successfully), Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    Toast.makeText(
+                        context,
+                        context.getString(R.string.please_fix_the_errors_and_try_again),
+                        Toast.LENGTH_SHORT
+                    )
+                        .show()
+                }
             },
             modifier = Modifier.fillMaxWidth()
         ) {

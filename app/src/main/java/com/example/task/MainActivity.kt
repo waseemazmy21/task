@@ -133,11 +133,15 @@ fun TabBar(appViewModel: AppViewModel = viewModel()) {
         }
 
         when (tabBarState.currentTabIndex) {
-            0 -> SignInScreen(onSignUpClick = { appViewModel.updateCurrentTabBarIndex(1) },
-                modifier = Modifier.fillMaxSize())
+            0 -> SignInScreen(
+                onSignUpClick = { appViewModel.updateCurrentTabBarIndex(1) },
+                modifier = Modifier.fillMaxSize()
+            )
 
-            1 -> SignUpScreen(onSignInClick = { appViewModel.updateCurrentTabBarIndex(0) },
-                modifier = Modifier.fillMaxSize())
+            1 -> SignUpScreen(
+                onSignInClick = { appViewModel.updateCurrentTabBarIndex(0) },
+                modifier = Modifier.fillMaxSize()
+            )
         }
     }
 }

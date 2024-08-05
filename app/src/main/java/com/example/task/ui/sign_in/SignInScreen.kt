@@ -107,9 +107,16 @@ fun Buttons(
 
         Button(onClick = {
             if (onSignIn()) {
-                Toast.makeText(context, "Sing in successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.sing_in_successfully), Toast.LENGTH_SHORT
+                ).show()
             } else {
-                Toast.makeText(context, "Please fix the error and try again", Toast.LENGTH_SHORT)
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.please_fix_the_errors_and_try_again),
+                    Toast.LENGTH_SHORT
+                )
                     .show()
             }
         }, modifier = Modifier.fillMaxWidth()) {

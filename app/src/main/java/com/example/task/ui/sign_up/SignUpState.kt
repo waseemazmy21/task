@@ -3,7 +3,7 @@ package com.example.task.ui.sign_up
 import androidx.annotation.StringRes
 
 data class SignUpState(
-    val salutation: String = "",
+    val salutation: String = SignUpViewModel.salutationOptions[0],
     @StringRes val salutationError: Int? = null,
     val firstName: String = "",
     @StringRes val firstNameError: Int? = null,
@@ -18,6 +18,6 @@ data class SignUpState(
     @StringRes val passwordError: Int? = null,
     val confirmPassword: String = "",
     @StringRes val confirmPasswordError: Int? = null,
-    val currency: String = "",
+    val currency: String = SignUpViewModel.currencies[0],
     @StringRes val currencyError: Int? = null
 )
