@@ -1,7 +1,7 @@
 package com.example.task.ui.sign_up
 
-import android.util.Patterns
 import androidx.annotation.StringRes
+import androidx.core.util.PatternsCompat
 import androidx.lifecycle.ViewModel
 import com.example.task.R
 import com.example.task.ui.utils.phone_regex
@@ -92,7 +92,7 @@ class SignUpViewModel : ViewModel() {
         _signUpState.update { currentState ->
             @StringRes val message: Int? = when {
                 currentState.email.isBlank() -> R.string.error_email_required
-                !Patterns.EMAIL_ADDRESS.matcher(currentState.email)
+                !PatternsCompat.EMAIL_ADDRESS.matcher(currentState.email)
                     .matches() -> R.string.error_incorrect_email_format
 
                 else -> null
@@ -133,6 +133,8 @@ class SignUpViewModel : ViewModel() {
                 confirmPassword = updatedConfirmPassword,
             )
         }
+
+        validateConfirmationPassword()
     }
 
     private fun validateConfirmationPassword() {
@@ -188,7 +190,7 @@ class SignUpViewModel : ViewModel() {
     private fun validateCurrency() {
         _signUpState.update { currentState ->
             @StringRes val message: Int? = when {
-                currentState.phoneNumber.isBlank() -> R.string.error_currency_required
+                currentState.currency.isBlank() -> R.string.error_currency_required
                 else -> null
             }
             currentState.copy(
@@ -197,7 +199,7 @@ class SignUpViewModel : ViewModel() {
         }
     }
 
-    fun signup() {
+    fun signUp(): Boolean {
         validateSalutation()
         validateFirstName()
         validateLastName()
@@ -206,6 +208,16 @@ class SignUpViewModel : ViewModel() {
         validatePassword()
         validateConfirmationPassword()
         validateCurrency()
+
+        val state = signUpState.value
+
+        return state.firstNameError == null &&
+                state.lastNameError == null &&
+                state.emailError == null &&
+                state.phoneNumberError == null &&
+                state.passwordError == null &&
+                state.confirmPasswordError == null &&
+                state.currencyError == null
     }
 
     companion object {

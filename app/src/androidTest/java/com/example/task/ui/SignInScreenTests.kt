@@ -1,8 +1,6 @@
 package com.example.task.ui
 
 import android.content.Context
-import androidx.activity.compose.setContent
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performTextClearance
@@ -15,7 +13,6 @@ import org.junit.Rule
 import org.junit.Test
 
 class SignInScreenTests {
-
     @get:Rule
     val composeTestRule = createComposeRule()
     private val context: Context = InstrumentationRegistry.getInstrumentation().targetContext
@@ -34,7 +31,7 @@ class SignInScreenTests {
 
         composeTestRule.onNodeWithText(context.resources.getString(R.string.error_email_required))
             .assertDoesNotExist()
-        
+
         composeTestRule.onNodeWithText(context.resources.getString(R.string.error_incorrect_email_format))
             .assertDoesNotExist()
     }
@@ -47,27 +44,28 @@ class SignInScreenTests {
             }
         }
 
-        val emptyEmail = ""
         composeTestRule.onNodeWithText(context.resources.getString(R.string.email))
             .performTextInput("anything")
         composeTestRule.onNodeWithText(context.resources.getString(R.string.email))
             .performTextClearance()
 
-        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_email_required)).assertExists()
+        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_email_required))
+            .assertExists()
     }
-    
+
     @Test
     fun signInScreen_inputInvalidEmail_emailErrorDisplayed() {
         composeTestRule.setContent {
-                TaskTheme {
-                    App()
-                }
+            TaskTheme {
+                App()
+            }
         }
 
         val invalidEmail = "waseem@gmail"
         composeTestRule.onNodeWithText(context.resources.getString(R.string.email))
             .performTextInput(invalidEmail)
-        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_incorrect_email_format)).assertExists()
+        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_incorrect_email_format))
+            .assertExists()
     }
 
     @Test
@@ -98,12 +96,12 @@ class SignInScreenTests {
             }
         }
 
-        val emptyPassword = ""
         composeTestRule.onNodeWithText(context.resources.getString(R.string.password))
             .performTextInput("anything")
         composeTestRule.onNodeWithText(context.resources.getString(R.string.password))
             .performTextClearance()
-        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_password_required)).assertExists()
+        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_password_required))
+            .assertExists()
     }
 
     @Test
@@ -117,7 +115,8 @@ class SignInScreenTests {
         val invalidPassword = "jjj"
         composeTestRule.onNodeWithText(context.resources.getString(R.string.password))
             .performTextInput(invalidPassword)
-        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_password_too_short)).assertExists()
+        composeTestRule.onNodeWithText(context.resources.getString(R.string.error_password_too_short))
+            .assertExists()
     }
 
     @Test
@@ -145,6 +144,7 @@ class SignInScreenTests {
             .assertDoesNotExist()
         composeTestRule.onNodeWithText(context.resources.getString(R.string.error_password_too_short))
             .assertDoesNotExist()
+
     }
 
     @Test
